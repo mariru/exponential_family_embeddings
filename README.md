@@ -17,4 +17,4 @@ The code requires [tensorflow](https://www.tensorflow.org/versions/r0.11/get_sta
 
 ## Running Bernoulli Embeddings
 
-To run, simply run `python main.py` in the `src/` folder.
+To run, simply execute `python main.py`.
