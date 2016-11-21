@@ -10,3 +10,9 @@ This code implements Bernoulli Embeddings as described in this paper:
 Also, check out the [NIPS 2016 Spotlight Video:](https://www.youtube.com/watch?v=4s82-SJXhBc)
 
 [![NIPS 2016 Spotlight video](https://img.youtube.com/vi/4s82-SJXhBc/0.jpg)](https://www.youtube.com/watch?v=4s82-SJXhBc)
+
+## Getting Started
+
+The code requires [tensorflow](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#download-and-setup) and [Edward](http://edwardlib.org/getting-started).
+
+To run. Simply run `main.py` from the source folder.
