@@ -3,9 +3,8 @@
 This code implements Bernoulli Embeddings as described in this paper:
 
 
-M. Rudolph, F. Ruiz, S. Mandt, D. Blei, **Exponential Family Embeddings**, 
-
-*Neural Information Processing Systems*, 2016 [[PDF]](http://www.cs.columbia.edu/~blei/papers/RudolphRuizMandtBlei2016.pdf)
+[M. Rudolph, F. Ruiz, S. Mandt, D. Blei, **Exponential Family Embeddings**, 
+*Neural Information Processing Systems*, 2016](http://www.cs.columbia.edu/~blei/papers/RudolphRuizMandtBlei2016.pdf)
 
 
 Also, check out the [NIPS 2016 Spotlight Video:](https://www.youtube.com/watch?v=4s82-SJXhBc)
