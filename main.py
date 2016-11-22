@@ -13,6 +13,7 @@ from models import *
 from args import *
 
 args, dir_name = parse_args()
+os.makedirs(dir_name)
 
 # DATA
 d = bern_emb_data(args.cs, args.ns, args.mb, args.L)
