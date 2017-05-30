@@ -16,6 +16,7 @@ class bern_emb_data():
         words = read_data(filename)
         self.build_dataset(words)
         self.batch = self.batch_generator()
+        self.N = len(self.data)
 
     def build_dataset(self, words):
         count = [['UNK', -1]]
