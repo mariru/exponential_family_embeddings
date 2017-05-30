@@ -13,7 +13,7 @@ Also, check out the [NIPS 2016 Spotlight Video:](https://www.youtube.com/watch?v
 
 ## Getting Started
 
-The code requires [tensorflow](https://www.tensorflow.org/install/).
+The code requires [tensorflow](https://www.tensorflow.org/install/) and [scikit learn](http://scikit-learn.org/stable/install.html).
 
 ## Running Bernoulli Embeddings
 
