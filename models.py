@@ -1,16 +1,16 @@
+import edward as ed
 import numpy as np
 import os
 import pickle
 import tensorflow as tf
 
-from tensorflow.contrib.distributions import Normal, Bernoulli
+from edward.models import Normal, Bernoulli
 from sklearn.manifold import TSNE
 from utils import *
 
 class bern_emb_model():
-    def __init__(self, d, K, sig, sess):
+    def __init__(self, d, K, sess):
         self.K = K
-        self.sig = sig
         self.sess = sess
 
         with tf.name_scope('model'):
@@ -34,10 +34,6 @@ class bern_emb_model():
                 # Context vectors
                 self.alpha = tf.Variable(tf.random_normal([d.L, self.K])/self.K, name='alpha')
 
-
-                with tf.name_scope('priors'):
-                    prior = Normal(loc = 0.0, scale = self.sig)
-                    self.log_prior = tf.reduce_sum(prior.log_prob(self.rho) + prior.log_prob(self.alpha))
 
             with tf.name_scope('natural_param'):
                 # Taget and Context Indices
@@ -65,19 +61,20 @@ class bern_emb_model():
             self.y_pos = Bernoulli(logits = self.p_eta)
             self.y_neg = Bernoulli(logits = self.n_eta)
 
-            self.ll_pos = tf.reduce_sum(self.y_pos.log_prob(1.0)) 
-            self.ll_neg = tf.reduce_sum(self.y_neg.log_prob(0.0))
+            self.data = {self.y_pos: tf.ones((d.n_minibatch, 1), tf.int32), self.y_neg: tf.zeros((d.n_minibatch, d.ns), tf.int32)}
 
-            self.log_likelihood = self.ll_pos + self.ll_neg
-            
-            scale = 1.0*d.N/d.n_minibatch
-            self.loss = - (scale * self.log_likelihood + self.log_prior)
 
-            # Training
-            optimizer = tf.train.AdamOptimizer()
-            self.train = optimizer.minimize(self.loss)
-            with self.sess.as_default():
-                tf.global_variables_initializer().run()
+            #self.ll_pos = tf.reduce_sum(self.y_pos.log_prob(1.0)) 
+            #self.ll_neg = tf.reduce_sum(self.y_neg.log_prob(0.0))
+
+            #self.log_likelihood = self.ll_pos + self.ll_neg
+            #
+            #scale = 1.0*d.N/d.n_minibatch
+            #self.loss = - (scale * self.log_likelihood + self.log_prior)
+
+            ## Training
+            #optimizer = tf.train.AdamOptimizer()
+            #self.train = optimizer.minimize(self.loss)
 
         
     def dump(self, fname):
