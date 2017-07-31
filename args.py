@@ -7,8 +7,8 @@ def parse_args():
         parser.add_argument('--K', type=int, default=100,
                             help='Number of dimensions. Default is 100.')
 
-        parser.add_argument('--L', type=int, default=50000,
-                            help='Vocabulary size. Default is 50000.')
+        parser.add_argument('--L', type=int, default=15000,
+                            help='Vocabulary size. Default is 15000.')
 
         parser.add_argument('--n_iter', type=int, default = 100,
                             help='Number iterations. Default is 500.')
@@ -19,8 +19,8 @@ def parse_args():
         parser.add_argument('--cs', type=int, default=4,
                             help='Context size. Default is 4.')
 
-        parser.add_argument('--ns', type=int, default=100,
-                            help='Number of negative samples. Default is 100.')
+        parser.add_argument('--ns', type=int, default=20,
+                            help='Number of negative samples. Default is 20.')
 
         parser.add_argument('--mb', type=int, default=5000,
                             help='Minibatch size. Default is 5000.')

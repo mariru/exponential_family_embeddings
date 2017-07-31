@@ -55,3 +55,14 @@ def plot_with_labels(low_dim_embs, labels, fname):
                      va='bottom')
     plt.savefig(fname)
     plt.close()
+
+def variable_summaries(summary_name, var):
+    with tf.name_scope(summary_name):
+        mean = tf.reduce_mean(var)
+        tf.summary.scalar('mean', mean)
+        with tf.name_scope('stddev'):
+            stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+        tf.summary.scalar('stddev', stddev)
+        tf.summary.scalar('max', tf.reduce_max(var))
+        tf.summary.scalar('min', tf.reduce_min(var))
+

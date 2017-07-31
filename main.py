@@ -19,7 +19,7 @@ sess = tf.Session()
 d = bern_emb_data(args.cs, args.ns, args.mb, args.L)
 
 # MODEL
-m = bern_emb_model(d, args.K, args.sig, sess)
+m = bern_emb_model(d, args.K, args.sig, sess, dir_name)
 
 
 # TRAINING
@@ -28,7 +28,9 @@ train_loss = np.zeros(args.n_iter)
 for i in range(args.n_iter):
     for ii in range(args.n_epochs):
         sess.run([m.train], feed_dict=d.feed(m.placeholders))
-    _, train_loss[i] = sess.run([m.train, m.loss], feed_dict=d.feed(m.placeholders))
+    summary, _ , train_loss[i] = sess.run([m.summaries, m.train, m.loss], feed_dict=d.feed(m.placeholders))
+    m.saver.save(sess, os.path.join(m.logdir, "model.ckpt"), i)
+    m.train_writer.add_summary(summary, i)
     print("iteration {:d}/{:d}, train loss: {:0.3f}\n".format(i, args.n_iter, train_loss[i])) 
 
 print('training finished. Results are saved in '+dir_name)

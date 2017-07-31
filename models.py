@@ -4,14 +4,16 @@ import pickle
 import tensorflow as tf
 
 from tensorflow.contrib.distributions import Normal, Bernoulli
+from tensorflow.contrib.tensorboard.plugins import projector
 from sklearn.manifold import TSNE
 from utils import *
 
 class bern_emb_model():
-    def __init__(self, d, K, sig, sess):
+    def __init__(self, d, K, sig, sess, logdir):
         self.K = K
         self.sig = sig
         self.sess = sess
+        self.logdir = logdir
 
         with tf.name_scope('model'):
             # Data Placeholder
@@ -78,6 +80,25 @@ class bern_emb_model():
             self.train = optimizer.minimize(self.loss)
             with self.sess.as_default():
                 tf.global_variables_initializer().run()
+            variable_summaries('rho', self.rho)
+            variable_summaries('alpha', self.alpha)
+            with tf.name_scope('objective'):
+                tf.summary.scalar('loss', self.loss)
+                tf.summary.scalar('priors', self.log_prior)
+                tf.summary.scalar('ll_pos', self.ll_pos)
+                tf.summary.scalar('ll_neg', self.ll_neg)
+            self.summaries = tf.summary.merge_all()
+            self.train_writer = tf.summary.FileWriter(self.logdir, self.sess.graph)
+            self.saver = tf.train.Saver()
+            config = projector.ProjectorConfig()
+
+            alpha = config.embeddings.add()
+            alpha.tensor_name = 'model/embeddings/alpha'
+            alpha.metadata_path = '../vocab.tsv'
+            rho = config.embeddings.add()
+            rho.tensor_name = 'model/embeddings/rho'
+            rho.metadata_path = '../vocab.tsv'
+            projector.visualize_embeddings(self.train_writer, config)
 
         
     def dump(self, fname):

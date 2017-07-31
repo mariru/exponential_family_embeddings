@@ -42,6 +42,9 @@ class bern_emb_data():
         unigram_dist = np.array([1.0*i for ii, i in count])
         unigram_dist = (unigram_dist/unigram_dist.sum())**(3.0/4)
         self.unigram = unigram_dist/unigram_dist.sum()
+        with open('fits/vocab.tsv', 'w') as txt:
+            for word in self.labels:
+                txt.write(word+'\n')
 
 
     def batch_generator(self):
