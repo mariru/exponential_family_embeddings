@@ -11,7 +11,7 @@ def parse_args():
                             help='Vocabulary size. Default is 15000.')
 
         parser.add_argument('--n_iter', type=int, default = 100,
-                            help='Number iterations. Default is 500.')
+                            help='Number iterations. Default is 100.')
 
         parser.add_argument('--n_epochs', type=int, default=10,
                             help='Number of epochs. Default is 10.')
